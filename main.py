@@ -143,7 +143,7 @@ async def play(message: types.Message, state: FSMContext):
 
 
 choice_yet=['правильно','Правильно']
-@dp.message_handler(filters.Text(contains=choice_yet, ignore_case=True), state=StateGame.the_user)
+@dp.message_handler(filters.Text(contains=choice_yet , ignore_case=True), state=StateGame.the_user)
 async def answer_bot(message: types.Message, state: FSMContext):
     await message.answer("я выиграл" + emoji.emojize(":clown_face:"))
     await state.finish()
