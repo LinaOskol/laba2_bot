@@ -44,7 +44,8 @@ async def cmd_start(message: types.Message):
     )
     keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
     await message.answer(
-        "Привет, я бот Угадай число " + message.from_user.username + "\n Выбери режим в котором будешь играть", reply_markup=keyboar)
+        "Привет, я бот Угадай число " + message.from_user.username + "\n Выбери режим в котором будешь играть",
+        reply_markup=keyboar)
 
 
 @dp.message_handler(filters.Text(equals="Я загадываю число боту от 1 до 100"))
@@ -136,14 +137,28 @@ async def play(message: types.Message, state: FSMContext):
     users_data_file.write(
         json.dumps({"count": json_data['count'], "command": "да"}))
     users_data_file.close()
-
-    await message.reply("Отличный выбор! Я отгадываю, а ты пиши правильно или не правильно")
+    kb = [
+        [
+            types.KeyboardButton(text="Верно"),
+            types.KeyboardButton(text="Не попал")
+        ],
+    ]
+    keyboar = types.ReplyKeyboardMarkup(
+        keyboard=kb,
+        resize_keyboard=True,
+        input_field_placeholder="Выбери режим"
+    )
+    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
+    await message.reply("Отличный выбор! Я отгадываю, а ты пиши верно или не верно", reply_markup=keyboar)
     mese = random.randint(1, 100)
     await message.answer(mese)
 
 
-choice_yet=['правильно','Правильно']
-@dp.message_handler(filters.Text(contains=choice_yet , ignore_case=True), state=StateGame.the_user)
+choice_yet = ['Верно',
+              'верно']
+
+
+@dp.message_handler(filters.Text(contains=choice_yet, ignore_case=True), state=StateGame.the_user)
 async def answer_bot(message: types.Message, state: FSMContext):
     await message.answer("я выиграл" + emoji.emojize(":clown_face:"))
     await state.finish()
@@ -152,8 +167,8 @@ async def answer_bot(message: types.Message, state: FSMContext):
 
 
 choice_not = [
-    'Не правильно',
-    'не правильно'
+    'Не попал',
+    'не попал'
 ]
 
 
