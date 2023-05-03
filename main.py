@@ -51,13 +51,37 @@ async def cmd_start(message: types.Message):
 @dp.message_handler(filters.Text(equals="Я загадываю число боту от 1 до 100"))
 async def user(message: types.Message):
     await StateGame.the_user.set()
-    await message.reply("Если готов ответь да или нет (отказ от игры)")
+    kb = [
+        [
+            types.KeyboardButton(text="Да"),
+            types.KeyboardButton(text="Нет")
+        ],
+    ]
+    keyboar = types.ReplyKeyboardMarkup(
+        keyboard=kb,
+        resize_keyboard=True,
+        input_field_placeholder="Выбери режим"
+    )
+    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
+    await message.reply("Если готов ответь да или нет (отказ от игры)", reply_markup=keyboar)
 
 
 @dp.message_handler(filters.Text(equals="Бот загадывает мне число от 1 до 100"))
 async def bote(message: types.Message):
     await StateGame.the_bot.set()
-    await message.reply("Если готов ответь да или нет (отказ от игры)")
+    kb = [
+        [
+            types.KeyboardButton(text="Да"),
+            types.KeyboardButton(text="Нет")
+        ],
+    ]
+    keyboar = types.ReplyKeyboardMarkup(
+        keyboard=kb,
+        resize_keyboard=True,
+        input_field_placeholder="Выбери режим"
+    )
+    keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
+    await message.reply("Если готов ответь да или нет (отказ от игры)", reply_markup=keyboar)
 
 
 choice_yes = [
