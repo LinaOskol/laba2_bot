@@ -149,7 +149,7 @@ async def play(message: types.Message, state: FSMContext):
         input_field_placeholder="Выбери режим"
     )
     keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
-    await message.reply("Отличный выбор! Я отгадываю, а ты пиши верно или не верно", reply_markup=keyboar)
+    await message.reply("Отличный выбор! Я отгадываю, а ты пиши верно или я не попал", reply_markup=keyboar)
     mese = random.randint(1, 100)
     await message.answer(mese)
 
